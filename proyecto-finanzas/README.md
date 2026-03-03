@@ -1,38 +1,97 @@
-# proyecto-finanzas
+# Fluxus - LOGIN_SISTEMA_INMOBILIARIO
 
-This template should help get you started developing with Vue 3 in Vite.
+Sistema de autenticación para el módulo de Crédito MiVivienda.
 
-## Recommended IDE Setup
+## 🚀 Inicio Rápido
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Recommended Browser Setup
-
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
+### 1. Instalar dependencias
+```bash
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### 2. Ejecutar ambos servicios
+```bash
+npm run start
+```
+(O separado: `npm run server` en Terminal 1 y `npm run dev` en Terminal 2)
 
-```sh
-npm run dev
+### 3. Abrir en navegador
+```
+http://localhost:5173
 ```
 
-### Compile and Minify for Production
+**Credenciales de prueba:**
+- Usuario: `usuario1`
+- Contraseña: `hash123`
 
-```sh
-npm run build
+---
+
+## 📝 Cambios Realizados
+
+### Nuevos archivos:
+- `src/services/authService.js` - Servicio de autenticación
+- `src/views/dashboard.vue` - Pantalla principal (protegida)
+
+### Modificados:
+- `src/views/login-page.vue` - Login mejorado con validaciones y estilos
+- `src/router/index.js` - Protección de rutas con guard
+- `vite.config.js` - Config Vite + alias @
+- `package.json` - Scripts: dev, build, server, start
+
+---
+
+## 🗄️ Base de Datos - Login
+
+**Ubicación:** `server/db.json`
+
+### Estructura de usuarios:
+```json
+{
+  "users": [
+    {
+      "id": "d4de",
+      "username": "usuario1",
+      "password_hash": "hash123",
+      "email": "usuario1@email.com",
+      "rol": true,
+      "created_at": "2024-06-01T12:00:00Z"
+    }
+  ]
+}
 ```
+
+**Campos:**
+- `username` - Identificador para login
+- `password_hash` - Contraseña
+- `email` - Correo usuario
+- `rol` - true = Agente
+- `id` - ID único (generado por json-server)
+
+---
+
+## ✅ Funcionalidades
+
+✓ Autenticación contra db.json  
+✓ Dashboard principal personalizado  
+✓ Protección de rutas  
+✓ Logout  
+✓ Diseño responsivo  
+✓ Validaciones en formularios  
+
+---
+
+## 📋 Scripts Disponibles
+
+```bash
+npm run dev       # Desarrollo (Vite)
+npm run server    # Backend json-server
+npm run start     # Ambos servicios
+npm run build     # Build producción
+```
+
+---
+
+## 🔗 Puertos
+
+- Frontend: `http://localhost:5173`
+- Backend: `http://localhost:3000`

@@ -1,6 +1,10 @@
 <template>
   <div class="register-bg">
     <div class="register-card">
+      <div class="logo-section">
+        <img class="app-logo" src="/fluxus-logo.png" alt="Fluxus" />
+        <p class="app-subtitle">Sistema de Crédito MiVivienda</p>
+      </div>
       <h2>Registro</h2>
       <form @submit.prevent="registrar">
         <div class="form-group">
@@ -84,92 +88,188 @@ export default {
   inset: 0;
   min-height: 100vh;
   min-width: 100vw;
-  background: linear-gradient(135deg, #1565c0 0%, #42a5f5 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  place-items: center;
+  padding: clamp(1.5rem, 2vw, 2.5rem);
+  background:
+    radial-gradient(900px 600px at 12% 10%, rgba(122, 195, 255, 0.45), transparent 60%),
+    radial-gradient(800px 500px at 88% 15%, rgba(21, 101, 192, 0.45), transparent 55%),
+    linear-gradient(140deg, #0b2a55 0%, #145ea8 45%, #1b88d9 100%);
+  overflow: hidden;
+}
+
+.register-bg::before,
+.register-bg::after {
+  content: '';
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.4), transparent 60%);
+  filter: blur(2px);
+  opacity: 0.5;
   z-index: 0;
 }
+
+.register-bg::before {
+  top: -140px;
+  right: -120px;
+}
+
+.register-bg::after {
+  bottom: -180px;
+  left: -160px;
+}
+
 .register-card {
-  background: #fff;
-  border-radius: 20px;
-  box-shadow: 0 8px 32px 0 rgba(21, 101, 192, 0.2);
-  padding: 3rem 2.5rem;
-  width: 100%;
-  max-width: 420px;
-  min-width: 320px;
+  position: relative;
+  z-index: 1;
+  width: min(460px, 100%);
+  background: rgba(255, 255, 255, 0.94);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow:
+    0 24px 60px rgba(9, 30, 66, 0.18),
+    0 4px 12px rgba(9, 30, 66, 0.12);
+  padding: 2.6rem 2.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  z-index: 1;
+  gap: 0.5rem;
+  backdrop-filter: blur(10px);
+  animation: cardIn 700ms ease both;
 }
+
+.logo-section {
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.app-logo {
+  width: min(210px, 80vw);
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 18px rgba(11, 42, 85, 0.18));
+  display: block;
+  margin: 0 auto;
+}
+
+.app-subtitle {
+  color: rgba(11, 42, 85, 0.7);
+  font-size: 0.95rem;
+  margin: 0.35rem 0 0 0;
+}
+
 h2 {
-  color: #1565c0;
-  margin-bottom: 2rem;
-  font-size: 2rem;
+  color: #145ea8;
+  margin: 0.6rem 0 0.5rem 0;
+  font-size: 1.6rem;
 }
+
 .form-group {
   width: 100%;
-  margin-bottom: 1.5rem;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  gap: 0.45rem;
+  margin-bottom: 1rem;
 }
+
 label {
-  color: #1976d2;
-  margin-bottom: 0.5rem;
-  font-weight: 500;
+  color: #0b2a55;
+  font-weight: 600;
+  font-size: 0.95rem;
 }
+
 .input {
   width: 100%;
-  padding: 0.7rem 0.9rem;
-  border: 1px solid #b3c6e6;
-  border-radius: 8px;
-  font-size: 1.1rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid #e1e7f0;
+  border-radius: 12px;
+  font-size: 1rem;
+  background: #f5f7fb;
   box-sizing: border-box;
-  margin-bottom: 0;
   outline: none;
-  transition: border 0.2s;
+  transition: border 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
 }
+
 .input:focus {
-  border: 1.5px solid #1976d2;
+  border-color: rgba(20, 94, 168, 0.6);
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(20, 94, 168, 0.12);
 }
+
 .register-btn {
   width: 100%;
-  background: #1976d2;
+  background: linear-gradient(135deg, #145ea8 0%, #0b2a55 100%);
   border: none;
   color: #fff;
-  font-weight: bold;
-  font-size: 1.1rem;
-  padding: 0.9rem 0;
-  border-radius: 8px;
-  transition: background 0.2s;
+  font-weight: 700;
+  font-size: 1.05rem;
+  padding: 0.95rem 0;
+  border-radius: 12px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
   margin-top: 0.5rem;
+  cursor: pointer;
 }
+
 .register-btn:hover {
-  background: #0d47a1;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(11, 42, 85, 0.25);
 }
+
 .login-link {
-  margin-top: 2rem;
-  color: #1976d2;
+  margin-top: 1.8rem;
+  color: #145ea8;
   text-decoration: none;
   transition: color 0.2s;
   font-size: 1rem;
+  font-weight: 600;
 }
+
 .login-link:hover {
-  color: #0d47a1;
+  color: #0b2a55;
   text-decoration: underline;
+}
+
+:deep(.p-password) {
+  width: 100%;
+}
+
+:deep(.p-password input) {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: 1px solid #e1e7f0;
+  border-radius: 12px;
+  font-size: 1rem;
+  background: #f5f7fb;
+}
+
+:deep(.p-password input:focus) {
+  border-color: rgba(20, 94, 168, 0.6);
+  box-shadow: 0 0 0 4px rgba(20, 94, 168, 0.12);
+}
+
+@keyframes cardIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 /* Responsive */
 @media (max-width: 500px) {
   .register-card {
-    padding: 2rem 1rem;
-    max-width: 95vw;
-    min-width: unset;
+    padding: 2rem 1.4rem;
   }
   h2 {
-    font-size: 1.3rem;
+    font-size: 1.35rem;
+  }
+  .app-logo {
+    width: min(170px, 80vw);
   }
 }
 </style>
