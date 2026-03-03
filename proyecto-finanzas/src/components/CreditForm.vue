@@ -90,6 +90,16 @@
             </select>
           </div>
         </div>
+
+        <!-- Se agrego la especificacion en meses para el tiempo de gracia -->
+        <div class="form-row" v-if="form.graceType !== 'none'">
+          <div class="form-group">
+            <label>Meses de Gracia</label>
+            <input type="number" v-model.number="form.graceMonths" min="1" max="24" required />
+          </div>
+          <div class="form-group">
+          </div>
+        </div>
       </fieldset>
 
       <div class="form-actions">
