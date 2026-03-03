@@ -1,0 +1,278 @@
+{
+  "users": [
+    {
+      "user_id": 1,
+      "username": "usuario1",
+      "password_hash": "hash123",
+      "email": "usuario1@email.com",
+      "rol": true,
+      "created_at": "2024-06-01T12:00:00Z",
+      "id": "d4de"
+    },
+    {
+      "id": "bafd",
+      "username": "Ronaldo",
+      "password_hash": "true",
+      "email": "ronaldo@gmail.com",
+      "rol": true,
+      "created_at": "2025-07-05T23:40:02.589Z"
+    },
+    {
+      "id": "bjfd",
+      "username": "Hola",
+      "password_hash": "Holaaaa",
+      "email": "hola@gmail.com",
+      "rol": true,
+      "created_at": "2025-07-05T23:40:02.600Z"
+    },
+    {
+      "id": "ba65",
+      "username": "yo",
+      "password_hash": "yo",
+      "email": "yo@gmail.com",
+      "rol": true,
+      "created_at": "2025-07-06T04:13:16.577Z"
+    },
+    {
+      "id": "2a69",
+      "username": "Diego Cano",
+      "password_hash": "contra",
+      "email": "diego@gmail.com",
+      "rol": false,
+      "created_at": "2025-07-07T21:37:22.801Z"
+    },
+    {
+      "id": "dce4",
+      "username": "Usuario2",
+      "password_hash": "123",
+      "email": "usuario@gmail.com",
+      "rol": true,
+      "created_at": "2025-07-07T22:23:03.270Z"
+    },
+    {
+      "id": "2888",
+      "username": "Sebastian Palacios",
+      "password_hash": "Contraseña",
+      "email": "sebpalacios@gmail.com",
+      "rol": true,
+      "created_at": "2025-07-07T22:32:56.732Z"
+    },
+    {
+      "id": "4c0a",
+      "username": "Pepe",
+      "password_hash": "pepe",
+      "email": "pepe@gmail.com",
+      "rol": false,
+      "created_at": "2025-07-07T22:38:03.063Z"
+    }
+  ],
+  "bonds": [
+    {
+      "nombre": "Bono hola",
+      "moneda": "PEN",
+      "monto": 2500,
+      "tasa": 13,
+      "tipo_tasa": "nominal",
+      "capitalizacion": "cuatrimestral",
+      "plazo": 9,
+      "frecuencia": "mensual",
+      "amortizacion": "francesa",
+      "gracias_periodos": [],
+      "id": "76c4"
+    },
+    {
+      "nombre": "Momazos Diego",
+      "moneda": "PEN",
+      "usuario_id": "ba65",
+      "monto": 53000,
+      "tasa": 7,
+      "tipo_tasa": "efectiva",
+      "capitalizacion": null,
+      "plazo": 14,
+      "frecuencia": "anual",
+      "amortizacion": "francesa",
+      "gracias_periodos": [
+        {
+          "tipo": "parcial",
+          "cantidad": 5
+        }
+      ],
+      "id": "cd14"
+    },
+    {
+      "id": "4f7d",
+      "nombre": "Momazos Diego 2",
+      "moneda": "USD",
+      "usuario_id": "ba65",
+      "monto": 1000,
+      "tasa": 2,
+      "tipo_tasa": "nominal",
+      "capitalizacion": "anual",
+      "plazo": 10,
+      "frecuencia": "anual",
+      "amortizacion": "francesa",
+      "gracias_periodos": [
+        {
+          "tipo": "total",
+          "cantidad": 1
+        },
+        {
+          "tipo": "parcial",
+          "cantidad": 1
+        }
+      ],
+      "created_at": "2025-07-07T04:07:18.958Z"
+    },
+    {
+      "id": "cc3d",
+      "nombre": "Bono prueba",
+      "moneda": "PEN",
+      "usuario_id": "ba65",
+      "monto": 50,
+      "tasa": 5,
+      "tipo_tasa": "efectiva",
+      "capitalizacion": null,
+      "plazo": 6,
+      "frecuencia": "anual",
+      "amortizacion": "francesa",
+      "gracias_periodos": [
+        {
+          "tipo": "total",
+          "cantidad": 3
+        }
+      ],
+      "created_at": "2025-07-07T04:18:08.769Z"
+    },
+    {
+      "id": "9944",
+      "nombre": "Jose",
+      "moneda": "EUR",
+      "usuario_id": "ba65",
+      "monto": 10500,
+      "tasa": 14,
+      "tipo_tasa": "nominal",
+      "capitalizacion": "cuatrimestral",
+      "plazo": 9,
+      "frecuencia": "semestral",
+      "amortizacion": "francesa",
+      "gracias_periodos": [
+        {
+          "tipo": "parcial",
+          "cantidad": 2
+        },
+        {
+          "tipo": "total",
+          "cantidad": 2
+        }
+      ],
+      "created_at": "2025-07-07T04:19:58.583Z"
+    },
+    {
+      "id": "6104",
+      "nombre": "Maria",
+      "moneda": "PEN",
+      "usuario_id": "ba65",
+      "monto": 10000,
+      "tasa": 8,
+      "tipo_tasa": "efectiva",
+      "capitalizacion": null,
+      "plazo": 5,
+      "frecuencia": "anual",
+      "amortizacion": "francesa",
+      "gracias_periodos": [
+        {
+          "tipo": "parcial",
+          "cantidad": 1
+        },
+        {
+          "tipo": "total",
+          "cantidad": 1
+        }
+      ],
+      "created_at": "2025-07-07T04:37:24.160Z"
+    },
+    {
+      "id": "6dc4",
+      "nombre": "Fila",
+      "moneda": "PEN",
+      "usuario_id": "ba65",
+      "monto": 8000,
+      "tasa": 0.5,
+      "tipo_tasa": "nominal",
+      "capitalizacion": "mensual",
+      "plazo": 9,
+      "frecuencia": "semestral",
+      "amortizacion": "francesa",
+      "gracias_periodos": [
+        {
+          "tipo": "total",
+          "cantidad": 2
+        },
+        {
+          "tipo": "parcial",
+          "cantidad": 3
+        }
+      ],
+      "created_at": "2025-07-07T23:45:05.848Z"
+    }
+  ],
+  "bond_configurations": [
+    {
+      "config_id": 1,
+      "bond_id": 1,
+      "currency": "PEN",
+      "interest_type": "nominal",
+      "nominal_rate": 0.08,
+      "capitalization": "anual",
+      "effective_rate": 0.0825,
+      "id": "a049"
+    }
+  ],
+  "cash_flows": [
+    {
+      "cashflow_id": 1,
+      "bond_id": 1,
+      "period_number": 1,
+      "payment_date": "2025-06-01",
+      "interest_payment": 800,
+      "principal_payment": 2000,
+      "total_payment": 2800,
+      "remaining_balance": 8000,
+      "grace_applied": false,
+      "id": "8db7"
+    }
+  ],
+  "financial_results": [
+    {
+      "result_id": 1,
+      "bond_id": 1,
+      "tcea": 0.085,
+      "trea": 0.083,
+      "duration": 4.5,
+      "mod_duration": 4.3,
+      "convexity": 20,
+      "max_price": 10500,
+      "calculated_at": "2024-06-01T12:00:00Z",
+      "id": "4a3e"
+    }
+  ],
+  "bond_changes": [
+    {
+      "change_id": 1,
+      "bond_id": 1,
+      "field_changed": "principal",
+      "old_value": "10000.00",
+      "new_value": "12000.00",
+      "changed_at": "2024-06-02T10:00:00Z",
+      "id": "c7ae"
+    }
+  ],
+  "grace_period_types": [
+    {
+      "grace_type_id": 1,
+      "name": "Total",
+      "period": 2,
+      "id": "5502"
+    }
+  ]
+}
