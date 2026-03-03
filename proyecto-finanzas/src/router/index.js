@@ -4,6 +4,8 @@ import { authService } from '@/services/authService'
 import Login from '../views/login-page.vue'
 import Register from '../views/register-page.vue'
 import Dashboard from '../views/dashboard.vue'
+import ScheduleView from '../views/ScheduleView.vue'
+import CreditView from "@/views/CreditView.vue";
 
 const routes = [
     { path: '/', redirect: '/login' },
@@ -13,6 +15,24 @@ const routes = [
         path: '/dashboard', 
         component: Dashboard,
         meta: { requiresAuth: true }
+    },
+    {
+        path: '/schedule',
+        name: 'Schedule',
+        component: ScheduleView,
+        meta: {
+            requiresAuth: true,
+            title: 'Cronograma de Pagos'
+        }
+    },
+    {
+        path: '/credit',
+        name: 'Credit',
+        component: CreditView,
+        meta: {
+            requiresAuth: true,
+            title: 'Registro de Crédito'
+        }
     }
 ]
 
