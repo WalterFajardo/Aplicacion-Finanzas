@@ -20,7 +20,7 @@
 
       <!-- Menu Grid -->
       <div class="menu-grid">
-        <router-link to="/simulador" class="menu-card">
+        <router-link to="/credit" class="menu-card">
           <div class="card-icon">📊</div>
           <h3>Simulador de Créditos</h3>
           <p>Realiza simulaciones de créditos hipotecarios MiVivienda</p>
@@ -32,7 +32,7 @@
           <p>Administra la información de tus clientes</p>
         </router-link>
 
-        <router-link to="/cronogramas" class="menu-card">
+        <router-link to="/schedule" class="menu-card">
           <div class="card-icon">📋</div>
           <h3>Cronogramas</h3>
           <p>Visualiza cronogramas de pagos generados</p>
