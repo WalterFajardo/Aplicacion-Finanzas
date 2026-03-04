@@ -1,41 +1,51 @@
 <template>
-  <div class="management-container">
-    <header class="page-header">
-      <div class="header-content">
-        <div class="titles">
+  <div class="dashboard-container">
+    <nav class="navbar">
+      <div class="navbar-content">
+        <img class="navbar-logo" src="/fluxus-logo.png" alt="Fluxus" />
+      </div>
+      <div class="navbar-user">
+        <span class="user-info">{{ currentUser.username }}</span>
+        <button @click="logout" class="btn-logout">Cerrar Sesión</button>
+      </div>
+    </nav>
+
+    <main class="dashboard-content">
+      <header class="page-header-fluxus">
+        <div class="header-titles">
           <h2>Gestión de Clientes</h2>
           <p class="subtitle">Administra la información socioeconómica de tus prospectos</p>
         </div>
-        <div class="header-actions">
+        <div class="action-buttons">
           <router-link to="/dashboard" class="btn-secondary">
-            ← Volver
+            ← Volver al Dashboard
           </router-link>
           <button @click="openAddModal" class="btn-primary">
             + Nuevo Cliente
           </button>
         </div>
-      </div>
-    </header>
+      </header>
 
-    <main class="clients-content">
-      <div v-if="clients.length === 0" class="empty-state">
-        <div class="empty-icon">👥</div>
-        <h3>No hay clientes registrados</h3>
-        <p>Comienza añadiendo tu primer prospecto a la cartera.</p>
-        <button @click="openAddModal" class="btn-primary mt-15">
-          + Añadir el primero
-        </button>
-      </div>
+      <section class="main-card">
+        <div v-if="clients.length === 0" class="empty-state">
+          <div class="empty-icon">👥</div>
+          <h3>No hay clientes registrados</h3>
+          <p>Comienza añadiendo tu primer prospecto a la cartera.</p>
+          <button @click="openAddModal" class="btn-primary mt-15">
+            + Añadir el primero
+          </button>
+        </div>
 
-      <div v-else class="clients-grid">
-        <ClientCard
-            v-for="client in clients"
-            :key="client.id"
-            :client="client"
-            @edit="openEditModal"
-            @delete="handleDelete"
-        />
-      </div>
+        <div v-else class="clients-grid">
+          <ClientCard
+              v-for="client in clients"
+              :key="client.id"
+              :client="client"
+              @edit="openEditModal"
+              @delete="handleDelete"
+          />
+        </div>
+      </section>
     </main>
 
     <ClientFormModal
@@ -49,32 +59,32 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
-import { useClients } from '@/composables/useClients';
+import {ref, onMounted} from 'vue';
+import {useRouter} from 'vue-router';
+import {authService} from '@/services/authService';
+import {useClients} from '@/composables/useClients';
 import ClientCard from '@/components/ClientCard.vue';
 import ClientFormModal from '@/components/ClientFormModal.vue';
 
-// 1. Traemos todas las funciones de nuestra base de datos local
-const { clients, loadClients, addClient, updateClient, deleteClient } = useClients();
+const router = useRouter();
+const {clients, loadClients, addClient, updateClient, deleteClient} = useClients();
 
-// 2. Variables para controlar la ventanita modal
+const currentUser = ref(authService.getCurrentUser() || {username: 'Usuario'});
 const showModal = ref(false);
 const selectedClient = ref(null);
 const isSubmitting = ref(false);
 
-// Cargamos la lista de clientes apenas el usuario entra a la pantalla
 onMounted(() => {
   loadClients();
 });
 
-// 3. Funciones para abrir y cerrar el modal
 const openAddModal = () => {
-  selectedClient.value = null; // Limpiamos para que se abra vacío
+  selectedClient.value = null;
   showModal.value = true;
 };
 
 const openEditModal = (client) => {
-  selectedClient.value = { ...client }; // Pasamos los datos del cliente a editar
+  selectedClient.value = {...client};
   showModal.value = true;
 };
 
@@ -83,18 +93,15 @@ const closeModal = () => {
   selectedClient.value = null;
 };
 
-// 4. Función que se ejecuta cuando el modal nos manda los datos validados
 const handleFormSubmit = async (formData) => {
   isSubmitting.value = true;
   try {
-    if (selectedClient.value && selectedClient.value.id) {
-      // Si el cliente ya tenía un ID, significa que estamos editando
+    if (selectedClient.value?.id) {
       await updateClient(selectedClient.value.id, formData);
     } else {
-      // Si no, estamos creando uno nuevo
       await addClient(formData);
     }
-    closeModal(); // Cerramos la ventanita al terminar
+    closeModal();
   } catch (error) {
     console.error(error);
   } finally {
@@ -102,125 +109,159 @@ const handleFormSubmit = async (formData) => {
   }
 };
 
-// 5. Función para eliminar con una pequeña confirmación de seguridad
 const handleDelete = async (id) => {
-  if (confirm('¿Estás seguro de que deseas eliminar a este cliente? Esta acción no se puede deshacer.')) {
+  if (confirm('¿Estás seguro de que deseas eliminar a este cliente?')) {
     await deleteClient(id);
   }
+};
+
+const logout = () => {
+  authService.logout();
+  router.push('/login');
 };
 </script>
 
 <style scoped>
-.management-container {
+.dashboard-container {
   min-height: 100vh;
-  background: linear-gradient(140deg, #f5f7fb 0%, #eef2f7 45%, #e2e9f5 100%);
-  padding: 40px 20px;
+  background-color: #f4f7fa;
+  color: #000;
 }
 
-.page-header {
-  max-width: 1200px;
-  margin: 0 auto 30px auto;
-  background: white;
-  padding: 20px 30px;
-  border-radius: 16px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.02);
-}
-
-.header-content {
+.navbar {
+  background: linear-gradient(135deg, #0b2a55 0%, #145ea8 100%);
+  padding: 0.8rem 2.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.titles h2 {
+.navbar-logo {
+  height: 42px;
+}
+
+.navbar-user {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.user-info {
+  color: white;
+  font-weight: 600;
+}
+
+.btn-logout {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  border: 1.5px solid rgba(255, 255, 255, 0.7);
+  padding: 7px 22px;
+  border-radius: 50px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-logout:hover {
+  background: #fff;
   color: #0b2a55;
-  font-size: 1.8rem;
-  margin: 0 0 5px 0;
+}
+
+.dashboard-content {
+  padding: 3rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.page-header-fluxus {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2.5rem;
+}
+
+.header-titles h2 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin: 0;
+  color: #0b2a55;
 }
 
 .subtitle {
   color: #64748b;
-  margin: 0;
-  font-size: 1rem;
+  font-size: 1.1rem;
+  margin-top: 5px;
 }
 
-.header-actions {
+.main-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 2.5rem;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.06);
+}
+
+.action-buttons {
   display: flex;
   gap: 15px;
-  align-items: center;
+}
+
+.btn-primary {
+  background: #145ea8;
+  color: #fff;
+  border: none;
+  padding: 0.8rem 1.8rem;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  background: #0c4a86;
 }
 
 .btn-secondary {
+  background: #fff;
+  color: #0b2a55;
+  border: 1.5px solid #e2e8f0;
+  padding: 0.8rem 1.8rem;
+  border-radius: 12px;
   text-decoration: none;
-  color: #475569;
-  font-weight: 600;
-  padding: 10px 20px;
-  border: 1px solid #cbd5e1;
-  border-radius: 8px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
   transition: all 0.2s;
 }
 
 .btn-secondary:hover {
   background: #f8fafc;
-  color: #0b2a55;
+  border-color: #cbd5e1;
 }
 
-.btn-primary {
-  background: #145ea8;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  font-weight: 600;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: transform 0.1s, background 0.2s;
-}
-
-.btn-primary:hover {
-  background: #0c4a86;
-  transform: translateY(-1px);
-}
-
-.clients-content {
-  max-width: 1200px;
-  margin: 0 auto;
+.clients-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 25px;
 }
 
 .empty-state {
   text-align: center;
-  background: white;
-  padding: 60px 20px;
-  border-radius: 16px;
-  border: 2px dashed #cbd5e1;
+  padding: 60px 0;
 }
 
 .empty-icon {
   font-size: 4rem;
-  margin-bottom: 15px;
-  opacity: 0.5;
-}
-
-.empty-state h3 {
-  color: #1e293b;
-  margin-bottom: 10px;
-}
-
-.empty-state p {
-  color: #64748b;
+  margin-bottom: 20px;
+  opacity: 0.3;
 }
 
 .mt-15 {
   margin-top: 15px;
 }
 
-.clients-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 20px;
-}
-
 @media (max-width: 768px) {
-  .header-content {
+  .page-header-fluxus {
     flex-direction: column;
     align-items: flex-start;
     gap: 20px;
