@@ -284,6 +284,15 @@
       "bankEntity": "Caja Municipal Cusco",
       "socioeconomicLevel": "A",
       "createdAt": "3/3/2026"
+    },
+    {
+      "id": "0459",
+      "customerName": "Maria",
+      "dni": "74512645",
+      "monthlyIncome": 2000,
+      "bankEntity": "Banco de Crédito del Perú (BCP)",
+      "socioeconomicLevel": "C",
+      "createdAt": "3/3/2026"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

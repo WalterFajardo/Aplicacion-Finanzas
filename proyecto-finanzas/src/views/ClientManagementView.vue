@@ -18,7 +18,7 @@
         </div>
         <div class="action-buttons">
           <router-link to="/dashboard" class="btn-secondary">
-            ← Volver al Dashboard
+            ← Volver
           </router-link>
           <button @click="openAddModal" class="btn-primary">
             + Nuevo Cliente

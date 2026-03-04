@@ -115,13 +115,25 @@ import {authService} from '@/services/authService'
 import {useCredit} from '@/composables/useCredit'
 
 const router = useRouter()
+// Extraemos creditData directamente del composable
 const {creditData, schedule, generateSchedule} = useCredit()
 const currentUser = ref(authService.getCurrentUser() || {username: 'Usuario'})
 const currentFilter = ref('all')
 
 const hasSchedule = computed(() => (schedule.value?.length || 0) > 0)
 
-// LÓGICA DE FILTRADO COMPLETA
+// ÚNICA DEFINICIÓN: Corregida para usar creditData directamente
+const formatCurrency = (val) => {
+  // Verificamos la moneda seleccionada en el formulario
+  const currencyCode = creditData.value?.currency === 'USD' ? 'USD' : 'PEN';
+
+  return new Intl.NumberFormat('es-PE', {
+    style: 'currency',
+    currency: currencyCode,
+  }).format(val || 0);
+};
+
+// LÓGICA DE FILTRADO
 const filteredSchedule = computed(() => {
   if (!schedule.value) return []
   const data = schedule.value
@@ -140,6 +152,7 @@ const filteredSchedule = computed(() => {
   }
 })
 
+// CÁLCULOS DEL RESUMEN
 const netCapital = computed(() => (parseFloat(creditData.value?.propertyPrice) || 0) - (parseFloat(creditData.value?.downPayment) || 0) - (parseFloat(creditData.value?.bonus) || 0))
 const totalInterest = computed(() => schedule.value?.reduce((acc, p) => acc + (p.interest || 0), 0) || 0)
 const totalToPay = computed(() => schedule.value?.reduce((acc, p) => acc + (p.totalPayment || 0), 0) || 0)
@@ -157,7 +170,6 @@ const vanValue = computed(() => {
 
 const tirValue = computed(() => parseFloat(creditData.value?.annualRate || 0) * 1.05)
 
-const formatCurrency = (val) => new Intl.NumberFormat('es-PE', {style: 'currency', currency: 'PEN'}).format(val || 0)
 const logout = () => {
   authService.logout();
   router.push('/login');
