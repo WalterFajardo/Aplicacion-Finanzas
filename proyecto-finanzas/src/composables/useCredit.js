@@ -17,7 +17,7 @@ const creditData = ref({
 });
 
 const schedule = ref([]);
-const indicators = ref(null); // <-- ¡NUEVO! Para guardar el VAN y TCEA
+const indicators = ref(null); // Para guardar el VAN y TCEA
 
 export function useCredit() {
   const updateCreditData = (data) => {
