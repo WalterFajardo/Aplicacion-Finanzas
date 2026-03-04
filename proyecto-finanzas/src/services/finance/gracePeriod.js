@@ -8,7 +8,7 @@ export const GRACE_TYPES = {
 
 export const processPartialGrace = (balance, monthlyRate) => {
   const interest = calculateInterest(balance, monthlyRate)
-  
+
   return {
     graceType: GRACE_TYPES.PARTIAL,
     payment: interest,           // Solo se paga el interés
@@ -23,7 +23,7 @@ export const processPartialGrace = (balance, monthlyRate) => {
 export const processTotalGrace = (balance, monthlyRate) => {
   const interest = calculateInterest(balance, monthlyRate)
   const newBalance = balance + interest  // Capitalización del interés
-  
+
   return {
     graceType: GRACE_TYPES.TOTAL,
     payment: 0,                  // No se paga cuota (solo seguros aparte)
@@ -46,18 +46,18 @@ export const processNoGrace = () => {
 export const processGracePeriod = (graceType, balance, monthlyRate, currentPeriod, graceMonths) => {
   // Validar que estamos dentro del período de gracia
   const isInGracePeriod = currentPeriod <= graceMonths
-  
+
   if (!isInGracePeriod || graceType === GRACE_TYPES.NONE) {
     return processNoGrace()
   }
-  
+
   switch (graceType) {
     case GRACE_TYPES.PARTIAL:
       return processPartialGrace(balance, monthlyRate)
-    
+
     case GRACE_TYPES.TOTAL:
       return processTotalGrace(balance, monthlyRate)
-    
+
     default:
       throw new Error(`Tipo de gracia no reconocido: ${graceType}`)
   }
@@ -67,11 +67,11 @@ export const calculateBalanceAfterTotalGrace = (initialBalance, monthlyRate, gra
   if (graceMonths <= 0) {
     return initialBalance
   }
-  
+
   // Saldo = Principal × (1 + i)^n
   const capitalizationFactor = Math.pow(1 + monthlyRate, graceMonths)
   const finalBalance = initialBalance * capitalizationFactor
-  
+
   return finalBalance
 }
 

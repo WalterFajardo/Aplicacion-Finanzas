@@ -8,54 +8,54 @@ export const useValidation = () => {
 
   const validateField = (field, value, context = {}) => {
     let result = { isValid: true, errors: [], warnings: [] }
-    
+
     switch (field) {
       case 'dni':
         result = validators.validateDNI(value)
         break
-      
+
       case 'income':
         result = validators.validateIncome(value)
         break
-      
+
       case 'propertyPrice':
         result = validators.validatePropertyPrice(value)
         break
-      
+
       case 'downPayment':
         result = validators.validateDownPayment(value, context.propertyPrice)
         break
-      
+
       case 'bonus':
         result = validators.validateBonus(value, context.propertyPrice, context.downPayment)
         break
-      
+
       case 'capital':
         result = validators.validateCapital(value)
         break
-      
+
       case 'annualRate':
         result = validators.validateRate(value, context.rateType)
         break
-      
+
       case 'termMonths':
         result = validators.validateTerm(value)
         break
-      
+
       case 'graceMonths':
         result = validators.validateGraceMonths(value, context.termMonths)
         break
-      
+
       case 'cok':
         result = validators.validateCOK(value)
         break
-      
+
       case 'password':
         if (!value || value.length < 4) {
           result = { isValid: false, errors: ['La contraseña debe tener al menos 4 caracteres'], warnings: [] }
         }
         break
-      
+
       default:
         result = { isValid: true, errors: [], warnings: [] }
     }
@@ -63,18 +63,18 @@ export const useValidation = () => {
     errors.value[field] = result.errors
     warnings.value[field] = result.warnings
     touched.value[field] = true
-    
+
     return result.isValid
   }
 
   const validateFields = (fields, context = {}) => {
     let allValid = true
-    
+
     for (const [field, value] of Object.entries(fields)) {
       const isValid = validateField(field, value, { ...fields, ...context })
       if (!isValid) allValid = false
     }
-    
+
     return allValid
   }
 
@@ -99,8 +99,8 @@ export const useValidation = () => {
   }
 
   const hasAnyError = computed(() => {
-    return Object.values(errors.value).some(fieldErrors => 
-      fieldErrors && fieldErrors.length > 0
+    return Object.values(errors.value).some(fieldErrors =>
+        fieldErrors && fieldErrors.length > 0
     )
   })
 
@@ -119,7 +119,7 @@ export const useValidation = () => {
     warnings.value = {}
     touched.value = {}
   }
-  
+
   return {
     // Estado
     errors,

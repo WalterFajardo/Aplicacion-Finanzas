@@ -19,6 +19,7 @@
           </div>
           <div class="action-buttons">
             <router-link to="/credit" class="btn-secondary">← Volver</router-link>
+            <router-link to="/reportes" class="btn-primary"> Ver Reportes</router-link>
             <button class="btn-primary" @click="exportToCSV">Descargar CSV</button>
           </div>
         </div>
@@ -50,15 +51,15 @@
           </div>
           <div class="summary-item">
             <span class="label">VAN</span>
-            <span class="value">{{ formatCurrency(vanValue) }}</span>
+            <span class="value">{{ indicators ? formatCurrency(indicators.van) : formatCurrency(0) }}</span>
           </div>
           <div class="summary-item">
-            <span class="label">TIR Anual</span>
-            <span class="value">{{ tirValue.toFixed(2) }}%</span>
+            <span class="label">TIR Mensual</span>
+            <span class="value">{{ indicators ? (indicators.tirMensual * 100).toFixed(2) : '0.00' }}%</span>
           </div>
           <div class="summary-item">
             <span class="label">TCEA</span>
-            <span class="value">{{ (tirValue * 1.02).toFixed(2) }}%</span>
+            <span class="value">{{ indicators ? indicators.tcea.toFixed(2) : '0.00' }}%</span>
           </div>
         </div>
       </section>
@@ -116,7 +117,7 @@ import {useCredit} from '@/composables/useCredit'
 
 const router = useRouter()
 // Extraemos creditData directamente del composable
-const {creditData, schedule, generateSchedule} = useCredit()
+const {creditData, schedule, indicators, generateSchedule} = useCredit()
 const currentUser = ref(authService.getCurrentUser() || {username: 'Usuario'})
 const currentFilter = ref('all')
 
@@ -158,7 +159,7 @@ const totalInterest = computed(() => schedule.value?.reduce((acc, p) => acc + (p
 const totalToPay = computed(() => schedule.value?.reduce((acc, p) => acc + (p.totalPayment || 0), 0) || 0)
 const monthlyPayment = computed(() => hasSchedule.value ? schedule.value[0].totalPayment : 0)
 
-const vanValue = computed(() => {
+/*const vanValue = computed(() => {
   if (!hasSchedule.value) return 0
   const rate = (parseFloat(creditData.value.annualRate) / 100) / 12
   let van = -netCapital.value
@@ -168,7 +169,70 @@ const vanValue = computed(() => {
   return van
 })
 
-const tirValue = computed(() => parseFloat(creditData.value?.annualRate || 0) * 1.05)
+const tirValue = computed(() => parseFloat(creditData.value?.annualRate || 0) * 1.05)*/
+
+//Para exportar en CSV
+const exportToCSV = () => {
+  // 1. Validar que existan datos
+  if (!schedule.value || schedule.value.length === 0) {
+    alert("No hay datos para exportar.");
+    return;
+  }
+
+  // 2. Definir las cabeceras de las columnas
+  const headers = [
+    "Mes",
+    "Tipo",
+    "Saldo Inicial",
+    "Amortizacion",
+    "Interes",
+    "Seguro Desgravamen",
+    "Seguro Inmueble",
+    "Cuota Total",
+    "Saldo Final"
+  ];
+
+  // 3. Usamos punto y coma
+  const csvRows = [headers.join(";")];
+
+  // 4. Recorrer el cronograma y extraer los valores
+  schedule.value.forEach((row) => {
+    let tipoPeriodo = 'Normal';
+    if (row.isGracePeriod) {
+      tipoPeriodo = row.graceType === 'TOTAL' ? 'Gracia Total' : 'Gracia Parcial';
+    }
+
+    const rowData = [
+      row.period,
+      tipoPeriodo,
+      row.openingBalance.toFixed(2),
+      row.amortization.toFixed(2),
+      row.interest.toFixed(2),
+      row.desgravamen.toFixed(2),
+      row.propertyInsurance.toFixed(2),
+      row.totalPayment.toFixed(2),
+      row.closingBalance.toFixed(2)
+    ];
+
+    csvRows.push(rowData.join(";"));
+  });
+
+  // 5. Unirtodo con saltos de linea
+  const csvString = csvRows.join("\n");
+
+  // 6. Crear el archivo (Blob).
+  const blob = new Blob(["\uFEFF" + csvString], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+
+  // 7. Crear un enlace invisible, forzar el clic y limpiar
+  const link = document.createElement("a");
+  link.href = url;
+  link.setAttribute("download", `Cronograma_MiVivienda_${creditData.value.currency}.csv`);
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
+
 
 const logout = () => {
   authService.logout();

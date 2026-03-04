@@ -52,59 +52,59 @@
     <div class="table-wrapper">
       <table class="schedule-table">
         <thead>
-          <tr>
-            <th>Mes</th>
-            <th>Tipo</th>
-            <th class="currency">Saldo Inicial</th>
-            <th class="currency">Cuota Base</th>
-            <th class="currency">Interes</th>
-            <th class="currency">Amortizacion</th>
-            <th class="currency">Seg. Desgravamen</th>
-            <th class="currency">Seg. Inmueble</th>
-            <th class="currency">Cuota Total</th>
-            <th class="currency">Saldo Final</th>
-          </tr>
+        <tr>
+          <th>Mes</th>
+          <th>Tipo</th>
+          <th class="currency">Saldo Inicial</th>
+          <th class="currency">Cuota Base</th>
+          <th class="currency">Interes</th>
+          <th class="currency">Amortizacion</th>
+          <th class="currency">Seg. Desgravamen</th>
+          <th class="currency">Seg. Inmueble</th>
+          <th class="currency">Cuota Total</th>
+          <th class="currency">Saldo Final</th>
+        </tr>
         </thead>
         <tbody>
-          <tr 
-            v-for="period in filteredSchedule" 
+        <tr
+            v-for="period in filteredSchedule"
             :key="period.period"
             :class="{ 'grace-row': period.isGracePeriod, 'grace-total': period.graceType === 'TOTAL' }"
-          >
-            <td class="center">{{ period.period }}</td>
-            <td class="center">
+        >
+          <td class="center">{{ period.period }}</td>
+          <td class="center">
               <span class="badge" :class="getBadgeClass(period)">
                 {{ getPeriodTypeLabel(period) }}
               </span>
-            </td>
-            <td class="currency">{{ formatCurrency(period.openingBalance) }}</td>
-            <td class="currency">{{ formatCurrency(period.payment) }}</td>
-            <td class="currency">{{ formatCurrency(period.interest) }}</td>
-            <td class="currency">{{ formatCurrency(period.amortization) }}</td>
-            <td class="currency">{{ formatCurrency(period.desgravamen) }}</td>
-            <td class="currency">{{ formatCurrency(period.propertyInsurance) }}</td>
-            <td class="currency total">{{ formatCurrency(period.totalPayment) }}</td>
-            <td class="currency">{{ formatCurrency(period.closingBalance) }}</td>
-          </tr>
+          </td>
+          <td class="currency">{{ formatCurrency(period.openingBalance) }}</td>
+          <td class="currency">{{ formatCurrency(period.payment) }}</td>
+          <td class="currency">{{ formatCurrency(period.interest) }}</td>
+          <td class="currency">{{ formatCurrency(period.amortization) }}</td>
+          <td class="currency">{{ formatCurrency(period.desgravamen) }}</td>
+          <td class="currency">{{ formatCurrency(period.propertyInsurance) }}</td>
+          <td class="currency total">{{ formatCurrency(period.totalPayment) }}</td>
+          <td class="currency">{{ formatCurrency(period.closingBalance) }}</td>
+        </tr>
         </tbody>
         <tfoot>
-          <tr class="totals-row">
-            <td colspan="3"><strong>TOTALES</strong></td>
-            <td class="currency">{{ formatCurrency(totals.payments) }}</td>
-            <td class="currency">{{ formatCurrency(totals.interest) }}</td>
-            <td class="currency">{{ formatCurrency(totals.amortization) }}</td>
-            <td class="currency">{{ formatCurrency(totals.desgravamen) }}</td>
-            <td class="currency">{{ formatCurrency(totals.propertyInsurance) }}</td>
-            <td class="currency total">{{ formatCurrency(totals.totalPayments) }}</td>
-            <td class="currency">-</td>
-          </tr>
+        <tr class="totals-row">
+          <td colspan="3"><strong>TOTALES</strong></td>
+          <td class="currency">{{ formatCurrency(totals.payments) }}</td>
+          <td class="currency">{{ formatCurrency(totals.interest) }}</td>
+          <td class="currency">{{ formatCurrency(totals.amortization) }}</td>
+          <td class="currency">{{ formatCurrency(totals.desgravamen) }}</td>
+          <td class="currency">{{ formatCurrency(totals.propertyInsurance) }}</td>
+          <td class="currency total">{{ formatCurrency(totals.totalPayments) }}</td>
+          <td class="currency">-</td>
+        </tr>
         </tfoot>
       </table>
     </div>
 
     <div class="info-box" v-if="hasCapitalizedInterest">
-      <strong>Nota sobre Gracia Total:</strong> Los intereses capitalizados durante el periodo 
-      de gracia total fueron: {{ formatCurrency(totalCapitalizedInterest) }}. Este monto se 
+      <strong>Nota sobre Gracia Total:</strong> Los intereses capitalizados durante el periodo
+      de gracia total fueron: {{ formatCurrency(totalCapitalizedInterest) }}. Este monto se
       sumo al saldo y no aparece como interes pagado.
     </div>
 
@@ -134,7 +134,7 @@ const creditData = computed(() => credit.creditData.value)
 
 const filteredSchedule = computed(() => {
   const data = schedule.value
-  
+
   switch (filter.value) {
     case 'grace':
       return data.filter(p => p.isGracePeriod)

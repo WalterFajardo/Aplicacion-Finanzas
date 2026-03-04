@@ -8,12 +8,12 @@ export const authService = {
       // Obtener todos los usuarios desde db.json
       const response = await fetch(`${API_URL}/users`)
       if (!response.ok) throw new Error('Error al conectar con servidor')
-      
+
       const users = await response.json()
-      
+
       // Buscar usuario con credenciales coincidentes
       const user = users.find(u => u.username === username && u.password_hash === password)
-      
+
       if (user) {
         // Guardar usuario en localStorage
         localStorage.setItem('currentUser', JSON.stringify({
@@ -64,7 +64,7 @@ export const authService = {
           created_at: new Date().toISOString()
         })
       })
-      
+
       if (!response.ok) throw new Error('Error al crear usuario')
       const newUser = await response.json()
       return { success: true, user: newUser, message: 'Usuario registrado exitosamente' }

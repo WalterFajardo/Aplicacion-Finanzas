@@ -8,6 +8,8 @@ import ScheduleView from '../views/ScheduleView.vue'
 import CreditView from "@/views/CreditView.vue";
 // IMPORTACIÓN DE LA NUEVA VISTA
 import ClientManagementView from '../views/ClientManagementView.vue';
+import ReportView from "@/views/ReportView.vue"
+
 
 const routes = [
     { path: '/', redirect: '/login' },
@@ -44,6 +46,15 @@ const routes = [
         meta: {
             requiresAuth: true,
             title: 'Gestión de Clientes'
+        }
+    },
+    {
+        path: '/reportes',
+        name: 'Reportes',
+        component: ReportView,
+        meta: {
+            requiresAuth: true,
+            title: 'Reportes Financieros'
         }
     }
 ]

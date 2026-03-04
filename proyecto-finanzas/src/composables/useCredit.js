@@ -1,5 +1,6 @@
 import { ref } from 'vue';
 import { calculateSchedule } from '@/services/finance';
+import { calculateAllIndicators } from '@/services/finance/indicators'; // Importa la nueva función
 
 const creditData = ref({
   customerName: '',
@@ -11,10 +12,12 @@ const creditData = ref({
   rateType: 'TEA',
   currency: 'PEN',
   graceType: 'NONE',
-  graceMonths: 0
+  graceMonths: 0,
+  cok: 12
 });
 
 const schedule = ref([]);
+const indicators = ref(null); // Para guardar el VAN y TCEA
 
 export function useCredit() {
   const updateCreditData = (data) => {
@@ -28,6 +31,14 @@ export function useCredit() {
 
       const result = calculateSchedule(creditData.value);
       schedule.value = result;
+
+      // (nuevo)Calcular Indicadores usando el cronograma y el capital
+      indicators.value = calculateAllIndicators(
+          creditData.value.capital,
+          schedule.value,
+          creditData.value.cok
+      );
+
       return true;
     } catch (error) {
       console.error("Error crítico en el cálculo:", error);
@@ -35,5 +46,5 @@ export function useCredit() {
     }
   };
 
-  return { creditData, schedule, updateCreditData, generateSchedule };
+  return { creditData, schedule, indicators, updateCreditData, generateSchedule };
 }

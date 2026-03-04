@@ -22,26 +22,26 @@
         <div class="form-group">
           <label for="usuario">Usuario</label>
           <input
-            id="usuario"
-            v-model="usuario"
-            type="text"
-            class="input"
-            placeholder="Ingrese su usuario"
-            required
-            :disabled="isLoading"
+              id="usuario"
+              v-model="usuario"
+              type="text"
+              class="input"
+              placeholder="Ingrese su usuario"
+              required
+              :disabled="isLoading"
           />
         </div>
 
         <div class="form-group">
           <label for="contrasena">Contraseña</label>
           <input
-            id="contrasena"
-            v-model="contrasena"
-            type="password"
-            class="input"
-            placeholder="Ingrese su contraseña"
-            required
-            :disabled="isLoading"
+              id="contrasena"
+              v-model="contrasena"
+              type="password"
+              class="input"
+              placeholder="Ingrese su contraseña"
+              required
+              :disabled="isLoading"
           />
         </div>
 
@@ -131,9 +131,9 @@ export default {
   place-items: center;
   padding: clamp(1.5rem, 2vw, 2.5rem);
   background:
-    radial-gradient(900px 600px at 10% 10%, rgba(122, 195, 255, 0.45), transparent 60%),
-    radial-gradient(800px 500px at 90% 20%, rgba(21, 101, 192, 0.45), transparent 55%),
-    linear-gradient(140deg, #0b2a55 0%, #145ea8 45%, #1b88d9 100%);
+      radial-gradient(900px 600px at 10% 10%, rgba(122, 195, 255, 0.45), transparent 60%),
+      radial-gradient(800px 500px at 90% 20%, rgba(21, 101, 192, 0.45), transparent 55%),
+      linear-gradient(140deg, #0b2a55 0%, #145ea8 45%, #1b88d9 100%);
   overflow: hidden;
 }
 
@@ -168,8 +168,8 @@ export default {
   border-radius: 24px;
   border: 1px solid rgba(20, 94, 168, 0.12);
   box-shadow:
-    0 24px 60px rgba(9, 30, 66, 0.18),
-    0 4px 12px rgba(9, 30, 66, 0.12);
+      0 24px 60px rgba(9, 30, 66, 0.18),
+      0 4px 12px rgba(9, 30, 66, 0.12);
   padding: 2.6rem 2.5rem;
   display: flex;
   flex-direction: column;

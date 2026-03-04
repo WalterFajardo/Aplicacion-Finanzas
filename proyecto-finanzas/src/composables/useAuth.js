@@ -24,7 +24,7 @@ export const useAuth = () => {
     }
 
     const success = authStore.login(dni, password)
-    
+
     return {
       success,
       errors: success ? [] : [authStore.state.error]
@@ -38,7 +38,7 @@ export const useAuth = () => {
   const clearError = () => {
     authStore.clearError()
   }
-  
+
   return {
     user,
     isAuthenticated,

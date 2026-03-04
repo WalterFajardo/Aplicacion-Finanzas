@@ -98,9 +98,9 @@ export default {
   flex-direction: column;
   min-height: 100vh;
   background:
-    radial-gradient(900px 600px at 12% 10%, rgba(122, 195, 255, 0.35), transparent 60%),
-    radial-gradient(800px 500px at 90% 20%, rgba(21, 101, 192, 0.25), transparent 55%),
-    linear-gradient(140deg, #f5f7fb 0%, #eef2f7 45%, #e2e9f5 100%);
+      radial-gradient(900px 600px at 12% 10%, rgba(122, 195, 255, 0.35), transparent 60%),
+      radial-gradient(800px 500px at 90% 20%, rgba(21, 101, 192, 0.25), transparent 55%),
+      linear-gradient(140deg, #f5f7fb 0%, #eef2f7 45%, #e2e9f5 100%);
   position: relative;
   overflow-x: hidden;
 }
