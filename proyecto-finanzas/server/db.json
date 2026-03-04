@@ -278,15 +278,6 @@
   "clients": [
     {
       "id": "0459",
-      "customerName": "weqewqqew",
-      "dni": "weq123",
-      "monthlyIncome": 123,
-      "bankEntity": "Caja Municipal Cusco",
-      "socioeconomicLevel": "A",
-      "createdAt": "3/3/2026"
-    },
-    {
-      "id": "0459",
       "customerName": "Maria",
       "dni": "74512645",
       "monthlyIncome": 2000,
