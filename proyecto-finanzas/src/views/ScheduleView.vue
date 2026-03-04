@@ -18,7 +18,8 @@
             <p class="subtitle">Entidad: {{ creditData.bankEntity || 'No especificada' }}</p>
           </div>
           <div class="action-buttons">
-            <router-link to="/credit" class="btn-secondary">← Volver</router-link>
+            <router-link to="/dashboard" class="btn-secondary"> Menú Principal</router-link>
+            <router-link to="/reportes" class="btn-primary"> Ver Reportes</router-link>
             <button class="btn-primary" @click="exportToCSV">Descargar CSV</button>
           </div>
         </div>

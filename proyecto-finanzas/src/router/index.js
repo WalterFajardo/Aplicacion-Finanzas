@@ -5,7 +5,8 @@ import Login from '../views/login-page.vue'
 import Register from '../views/register-page.vue'
 import Dashboard from '../views/dashboard.vue'
 import ScheduleView from '../views/ScheduleView.vue'
-import CreditView from "@/views/CreditView.vue";
+import CreditView from "@/views/CreditView.vue"
+import ReportView from "@/views/ReportView.vue"
 
 const routes = [
     { path: '/', redirect: '/login' },
@@ -32,6 +33,15 @@ const routes = [
         meta: {
             requiresAuth: true,
             title: 'Registro de Crédito'
+        }
+    },
+    {
+        path: '/reportes',
+        name: 'Reportes',
+        component: ReportView,
+        meta: {
+            requiresAuth: true,
+            title: 'Reportes Financieros'
         }
     }
 ]
