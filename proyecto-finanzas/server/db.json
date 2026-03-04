@@ -274,5 +274,17 @@
       "period": 2,
       "id": "5502"
     }
-  ]
+  ],
+  "clients": [
+    {
+      "id": "0459",
+      "customerName": "weqewqqew",
+      "dni": "weq123",
+      "monthlyIncome": 123,
+      "bankEntity": "Caja Municipal Cusco",
+      "socioeconomicLevel": "A",
+      "createdAt": "3/3/2026"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

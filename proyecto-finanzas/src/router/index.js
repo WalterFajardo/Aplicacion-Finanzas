@@ -6,13 +6,15 @@ import Register from '../views/register-page.vue'
 import Dashboard from '../views/dashboard.vue'
 import ScheduleView from '../views/ScheduleView.vue'
 import CreditView from "@/views/CreditView.vue";
+// IMPORTACIÓN DE LA NUEVA VISTA
+import ClientManagementView from '../views/ClientManagementView.vue';
 
 const routes = [
     { path: '/', redirect: '/login' },
     { path: '/login', component: Login },
     { path: '/register', component: Register },
-    { 
-        path: '/dashboard', 
+    {
+        path: '/dashboard',
         component: Dashboard,
         meta: { requiresAuth: true }
     },
@@ -32,6 +34,16 @@ const routes = [
         meta: {
             requiresAuth: true,
             title: 'Registro de Crédito'
+        }
+    },
+    // REGISTRO DE LA NUEVA RUTA PARA GESTIÓN DE CLIENTES
+    {
+        path: '/gestionar-clientes',
+        name: 'ClientManagement',
+        component: ClientManagementView,
+        meta: {
+            requiresAuth: true,
+            title: 'Gestión de Clientes'
         }
     }
 ]
